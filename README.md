@@ -15,60 +15,43 @@ REG NO:212224040124
 ### server
 ```python
 import socket
-s = socket.socket()
-s.bind(('localhost', 9999))
-s.listen(1)
-print("Server listening...")
-conn, addr = s.accept()
-print(f"Connected to {addr}")
-
+s=socket.socket()
+s.connect(('localhost',8000))
 while True:
-    frames = conn.recv(1024).decode()
-    if not frames:
-        break
-
-    print(f"Received frames: {frames}")
-    ack_message = f"ACK for frames: {frames}"
-    conn.send(ack_message.encode())
-
-conn.close()  
-s.close()  
+    print(s.recv(1024).decode())
+    s.send("acknowledgement recived from the server".encode())
 ```
 ### client
 ```python
 import socket
-c = socket.socket()
-c.connect(('localhost', 9999))
-
-size = int(input("Enter number of frames to send: "))
-l = list(range(size))  
-print("Total frames to send:", len(l))
-s = int(input("Enter Window Size: "))
-
-i = 0
+s=socket.socket()
+s.bind(('localhost',8000))
+s.listen(5)
+c,addr=s.accept()
+size=int(input("Enter number of frames to send : "))
+l=list(range(size))
+s=int(input("Enter Window Size : "))
+st=0
+i=0
 while True:
-    while i < len(l):
-        st = i + s
-        frames_to_send = l[i:st]  
-        print(f"Sending frames: {frames_to_send}")
-        c.send(str(frames_to_send).encode())  
-
-        ack = c.recv(1024).decode()  
+    while(i<len(l)):
+        st +=s
+        c.send(str(l[i:st]).encode())
+        ack=c.recv(1024).decode()
         if ack:
-            print(f"Acknowledgment received: {ack}")
-            i += s  
-
-    break
-c.close()  
+            print(ack)
+            i+=s
 ```
 ## OUPUT
 
 ### server
-<img width="1538" height="990" alt="image" src="https://github.com/user-attachments/assets/5de00f48-941d-4edd-83f0-d06b252f5c34" />
+<img width="1344" height="843" alt="{2F580F88-2780-4A0F-9A62-688BADD7FD2B}" src="https://github.com/user-attachments/assets/159a96f3-af1b-4bd3-ab0e-9d5b5dd19e1b" />
+
 
 ### client
 
-<img width="1537" height="1037" alt="image" src="https://github.com/user-attachments/assets/84130b0c-4427-4861-bfe7-6b7b1a2f7cbd" />
+<img width="1350" height="912" alt="{387C7A0A-1E7D-49AB-9C44-9709C6D19206}" src="https://github.com/user-attachments/assets/bb658068-ff49-4660-9214-7c209e65dac3" />
+
 
 
 ## RESULT

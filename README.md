@@ -16,15 +16,6 @@ REG NO:212224040124
 ```python
 import socket
 s=socket.socket()
-s.connect(('localhost',8000))
-while True:
-    print(s.recv(1024).decode())
-    s.send("acknowledgement recived from the server".encode())
-```
-### client
-```python
-import socket
-s=socket.socket()
 s.bind(('localhost',8000))
 s.listen(5)
 c,addr=s.accept()
@@ -42,15 +33,25 @@ while True:
             print(ack)
             i+=s
 ```
+### client
+```python
+import socket
+s=socket.socket()
+s.connect(('localhost',8000))
+while True:
+    print(s.recv(1024).decode())
+    s.send("acknowledgement recived from the server".encode())
+```
 ## OUPUT
 
 ### server
-<img width="1344" height="843" alt="{2F580F88-2780-4A0F-9A62-688BADD7FD2B}" src="https://github.com/user-attachments/assets/159a96f3-af1b-4bd3-ab0e-9d5b5dd19e1b" />
+<img width="1479" height="931" alt="image" src="https://github.com/user-attachments/assets/672bab33-f8bb-4936-83d2-8162cf364339" />
+
 
 
 ### client
 
-<img width="1350" height="912" alt="{387C7A0A-1E7D-49AB-9C44-9709C6D19206}" src="https://github.com/user-attachments/assets/bb658068-ff49-4660-9214-7c209e65dac3" />
+<img width="1493" height="918" alt="image" src="https://github.com/user-attachments/assets/b9851989-9037-4645-9933-e0e45e58346c" />
 
 
 
